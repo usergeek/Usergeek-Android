@@ -28,6 +28,7 @@ Usergeek.initialize(context, "<API_KEY>",
     InitConfig()
         .enableStartAppEvent()
         .enableSessionTracking(app)
+        .enableFlushOnClose(app)
         .setDevicePropertyConfig(
             DevicePropertyConfig()
                 .trackPlatform()
@@ -61,6 +62,7 @@ Usergeek.INSTANCE.initialize(context, "<API_KEY>",
         new InitConfig()
                 .enableStartAppEvent()
                 .enableSessionTracking(app)
+                .enableFlushOnClose(app)
                 .setDevicePropertyConfig(
                         new DevicePropertyConfig()
                                 .trackPlatform()

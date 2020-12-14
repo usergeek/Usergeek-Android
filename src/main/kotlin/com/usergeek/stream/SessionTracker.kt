@@ -44,28 +44,15 @@ object SessionTracker {
 
         timer = Timer("EndSessionTimer", true)
 
-        app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+        app.registerActivityLifecycleCallbacks(object : LifecycleCallbacks() {
+            @Override
             override fun onActivityPaused(activity: Activity) {
                 toBackground(activity)
             }
 
+            @Override
             override fun onActivityResumed(activity: Activity) {
                 toForeground(activity)
-            }
-
-            override fun onActivityStarted(activity: Activity?) {
-            }
-
-            override fun onActivityDestroyed(activity: Activity?) {
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity?, bundle: Bundle?) {
-            }
-
-            override fun onActivityStopped(activity: Activity?) {
-            }
-
-            override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
             }
         })
 

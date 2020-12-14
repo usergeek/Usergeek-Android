@@ -1,5 +1,6 @@
 package com.usergeek.stream
 
+import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
@@ -54,6 +55,13 @@ class ClientImpl(
         config.enableSessionTracking?.let {
             SessionTracker.enableSessionTracking(it)
         }
+
+        config.enableFlushOnClose?.registerActivityLifecycleCallbacks(object : LifecycleCallbacks() {
+            @Override
+            override fun onActivityPaused(activity: Activity) {
+                flush()
+            }
+        })
     }
 
 

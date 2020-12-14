@@ -9,6 +9,7 @@ class InitConfig {
     internal var initialUserId: String? = null
     internal var enableStartAppEvent = false
     internal var enableSessionTracking: Application? = null
+    internal var enableFlushOnClose: Application? = null
 
     fun setDevicePropertyConfig(config: DevicePropertyConfig?): InitConfig {
         devicePropertyConfig = config
@@ -32,6 +33,11 @@ class InitConfig {
 
     fun enableSessionTracking(app: Application): InitConfig {
         enableSessionTracking = app
+        return this
+    }
+
+    fun enableFlushOnClose(app: Application): InitConfig {
+        enableFlushOnClose = app
         return this
     }
 }

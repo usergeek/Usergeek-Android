@@ -31,12 +31,14 @@ class ConfigurationTest: BaseTest() {
         initConfig.setInitialUserId("u")
         initConfig.enableStartAppEvent()
         initConfig.enableSessionTracking(ApplicationProvider.getApplicationContext())
+        initConfig.enableFlushOnClose(ApplicationProvider.getApplicationContext())
 
         Truth.assertThat(initConfig.devicePropertyConfig).isEqualTo(devicePropertyConfig)
         Truth.assertThat(initConfig.initialDeviceId).isEqualTo("d")
         Truth.assertThat(initConfig.initialUserId).isEqualTo("u")
         Truth.assertThat(initConfig.enableStartAppEvent).isTrue()
         Truth.assertThat(initConfig.enableSessionTracking).isNotNull()
+        Truth.assertThat(initConfig.enableFlushOnClose).isNotNull()
     }
 
     @Test
