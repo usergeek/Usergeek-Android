@@ -3,8 +3,6 @@ package com.usergeek.stream
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
 class UserPropertiesTest {
 
@@ -98,6 +96,20 @@ class UserPropertiesTest {
             assertThat(content.size).isEqualTo(5)
             assertThat(content[property1]!!.operation).isEqualTo(Formats.PropertyOperation.SET)
             assertThat(content[property1]!!.value).isEqualTo(value12)
+        }
+
+       run {
+            userProperties.add(property2, value4)
+            assertThat(content.size).isEqualTo(5)
+            assertThat(content[property2]!!.operation).isEqualTo(Formats.PropertyOperation.ADD)
+            assertThat(content[property2]!!.value).isEqualTo(value4)
+        }
+
+       run {
+            userProperties.subtract(property3, value2)
+            assertThat(content.size).isEqualTo(5)
+            assertThat(content[property3]!!.operation).isEqualTo(Formats.PropertyOperation.SUBTRACT)
+            assertThat(content[property3]!!.value).isEqualTo(value2)
         }
 
         "abc" isEqualsTo "abc"

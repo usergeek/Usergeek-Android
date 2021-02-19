@@ -9,6 +9,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.lang.IllegalArgumentException
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 @RunWith(RobolectricTestRunner::class)
 class FormatsTest : BaseTest() {
@@ -169,6 +171,22 @@ class FormatsTest : BaseTest() {
     }
 
     @Test
+    fun putPropertyFloatValue() {
+        val jsonObject = JSONObject()
+        jsonObject.putPropertyValue(123.5f)
+        Truth.assertThat(jsonObject.length()).isEqualTo(1)
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(123.5f)
+    }
+
+    @Test
+    fun putPropertyDoubleValue() {
+        val jsonObject = JSONObject()
+        jsonObject.putPropertyValue(23.4)
+        Truth.assertThat(jsonObject.length()).isEqualTo(1)
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(23.4)
+    }
+
+    @Test
     fun putPropertyNullValue() {
         val jsonObject = JSONObject()
         jsonObject.putPropertyValue(null)
@@ -179,7 +197,7 @@ class FormatsTest : BaseTest() {
     @Test
     fun putPropertyWrongValue() {
         val jsonObject = JSONObject()
-        jsonObject.putPropertyValue(23f)
+        jsonObject.putPropertyValue(AtomicBoolean())
         Truth.assertThat(jsonObject.length()).isEqualTo(1)
         Truth.assertThat(jsonObject[Formats.PropertyField.VALUE_WARNING])
             .isEqualTo(Formats.Warning.UNSUPPORTED_TYPE)
@@ -187,29 +205,61 @@ class FormatsTest : BaseTest() {
 
     @Test
     fun putPropertyUserPropertyValue() {
-        val jsonObject = JSONObject()
-        jsonObject.putPropertyValue(
-            UserProperties.UserPropertyValue(
-                Formats.PropertyOperation.SET,
-                "abc"
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.SET,
+                    "abc"
+                )
             )
-        )
-        Truth.assertThat(jsonObject.length()).isEqualTo(2)
-        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
-        Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
-            .isEqualTo(Formats.PropertyOperation.SET)
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.SET)
+        }
 
-        val jsonObject2 = JSONObject()
-        jsonObject2.putPropertyValue(
-            UserProperties.UserPropertyValue(
-                Formats.PropertyOperation.UNSET,
-                null
+        kotlin.run {
+            val jsonObject2 = JSONObject()
+            jsonObject2.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.UNSET,
+                    null
+                )
             )
-        )
-        Truth.assertThat(jsonObject2.length()).isEqualTo(2)
-        Truth.assertThat(jsonObject2[Formats.PropertyField.VALUE]).isEqualTo(JSONObject.NULL)
-        Truth.assertThat(jsonObject2[Formats.PropertyField.OPERATION])
-            .isEqualTo(Formats.PropertyOperation.UNSET)
+            Truth.assertThat(jsonObject2.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject2[Formats.PropertyField.VALUE]).isEqualTo(JSONObject.NULL)
+            Truth.assertThat(jsonObject2[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.UNSET)
+        }
+
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.ADD,
+                    "abc"
+                )
+            )
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.ADD)
+        }
+
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.SUBTRACT,
+                    "abc"
+                )
+            )
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.SUBTRACT)
+        }
     }
 
     @Test
@@ -232,7 +282,7 @@ class FormatsTest : BaseTest() {
     @Test
     fun putPropertySupplierWrongValue() {
         val jsonObject = JSONObject()
-        jsonObject.putPropertyValue(Supplier<Float> { 23f })
+        jsonObject.putPropertyValue(Supplier<AtomicInteger> { AtomicInteger(3) })
         Truth.assertThat(jsonObject.length()).isEqualTo(1)
         Truth.assertThat(jsonObject[Formats.PropertyField.VALUE_WARNING])
             .isEqualTo(Formats.Warning.UNSUPPORTED_TYPE)

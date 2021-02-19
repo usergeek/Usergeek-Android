@@ -44,12 +44,18 @@ Usergeek.initialize(context, "<API_KEY>",
 )
 
 Usergeek.getClient().logUserProperties(
-    UserProperties().set("gender", "male"))
+    UserProperties()
+        .set("gender", "male")
+        .set("supportedLanguages", "en"))
 
 Usergeek.getClient().setUserId("123123-341231")
 
 Usergeek.getClient().logEvent("StartConversation",
     EventProperties().set("type", "private"))
+
+Usergeek.getClient().logUserProperties(
+    UserProperties()
+        .add("supportedLanguages", "ru"))
 
 Usergeek.getClient().logEvent("EndConversation")
 Usergeek.getClient().flush()

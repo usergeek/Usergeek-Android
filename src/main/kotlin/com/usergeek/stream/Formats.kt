@@ -61,6 +61,8 @@ object Formats {
     object PropertyOperation {
         const val SET = "s"
         const val UNSET = "u"
+        const val ADD = "+"
+        const val SUBTRACT = "-"
     }
 
     object DefaultEvents {
@@ -263,7 +265,7 @@ internal fun JSONObject.putPropertyValue(value: Any?) {
                 }
             }
         }
-        is Boolean, is Long, is Int, is Short, is Byte -> {
+        is Boolean, is Long, is Int, is Short, is Byte, is Double, is Float -> {
             put(Formats.PropertyField.VALUE, value)
         }
         is UserProperties.UserPropertyValue -> {
