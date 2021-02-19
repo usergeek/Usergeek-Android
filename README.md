@@ -5,7 +5,7 @@
 Download via Gradle:
 
 ```gradle
-implementation 'com.usergeek:usergeek-android:1.0.1'
+implementation 'com.usergeek:usergeek-android:1.0.2'
 ```
 
 Download via Maven:
@@ -83,12 +83,19 @@ Usergeek.INSTANCE.initialize(context, "<API_KEY>",
                 )
 );
 
-Usergeek.INSTANCE.getClient().logUserProperties(new UserProperties().set("gender", "male"));
+Usergeek.INSTANCE.getClient().logUserProperties(
+    new UserProperties()
+        .set("gender", "male")
+        .set("supportedLanguages", "en"));
 
 UsergeekClient client = Usergeek.INSTANCE.getClient();
 client.setUserId("123123-341231");
 
 client.logEvent("StartConversation", new EventProperties().set("type", "private"));
+
+client.logUserProperties(
+          new UserProperties()
+              .set("supportedLanguages", "ru"));
 
 client.logEvent("EndConversation");
 
