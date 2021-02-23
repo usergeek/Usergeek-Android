@@ -12,7 +12,7 @@ object DevicePropertyFactory {
 
     fun getCarrier(ctx: Context): String? {
         return (ctx.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager)?.run {
-            this.networkOperatorName?.trim()?.let {
+            this.networkOperatorName?.trim()?.let<String, String> {
                 return if (it.isEmpty()) null else it
             }
         }

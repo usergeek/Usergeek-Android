@@ -5,7 +5,7 @@
 Download via Gradle:
 
 ```gradle
-implementation 'com.usergeek:usergeek-android:1.0.2'
+implementation 'com.usergeek:usergeek-android:1.0.3'
 ```
 
 Download via Maven:
@@ -14,7 +14,7 @@ Download via Maven:
 <dependency>
   <groupId>com.usergeek</groupId>
   <artifactId>usergeek-android</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <type>pom</type>
 </dependency>
 ```
@@ -104,4 +104,4 @@ client.flush();
 
 ## License 
 
-`Usergeek-Android` is distributed under the terms and conditions of the [MIT license](https://github.com/ruby-light/RLT-Android/blob/master/LICENSE).
+`Usergeek-Android` is distributed under the terms and conditions of the [MIT license](https://github.com/usergeek/Usergeek-Android/blob/master/LICENSE).
