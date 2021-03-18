@@ -17,8 +17,28 @@ class ClientWrapper : UsergeekClient {
         return this
     }
 
-    override fun logUserProperties(userProperties: UserProperties): UsergeekClient {
-        client?.logUserProperties(userProperties) ?: ignoreWarning("logUserProperties")
+    override fun setUserProperty(property: String, value: Any?): UsergeekClient {
+        client?.setUserProperty(property, value) ?: ignoreWarning("setUserProperty")
+        return this
+    }
+
+    override fun unsetUserProperty(property: String): UsergeekClient {
+        client?.unsetUserProperty(property) ?: ignoreWarning("unsetUserProperty")
+        return this
+    }
+
+    override fun incrementUserProperty(property: String, value: Number): UsergeekClient {
+        client?.incrementUserProperty(property, value) ?: ignoreWarning("incrementUserProperty")
+        return this
+    }
+
+    override fun appendUserProperty(property: String, value: String): UsergeekClient {
+        client?.appendUserProperty(property, value) ?: ignoreWarning("appendUserProperty")
+        return this
+    }
+
+    override fun removeUserProperty(property: String, value: String): UsergeekClient {
+        client?.removeUserProperty(property, value) ?: ignoreWarning("removeUserProperty")
         return this
     }
 

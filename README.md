@@ -5,7 +5,7 @@
 Download via Gradle:
 
 ```gradle
-implementation 'com.usergeek:usergeek-android:1.0.3'
+implementation 'com.usergeek:usergeek-android:1.0.4'
 ```
 
 Download via Maven:
@@ -14,7 +14,7 @@ Download via Maven:
 <dependency>
   <groupId>com.usergeek</groupId>
   <artifactId>usergeek-android</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -43,19 +43,17 @@ Usergeek.initialize(context, "<API_KEY>",
         )
 )
 
-Usergeek.getClient().logUserProperties(
-    UserProperties()
-        .set("gender", "male")
-        .set("supportedLanguages", "en"))
+Usergeek.getClient()
+    .setUserProperty("gender", "male")
+    .setUserProperty("supportedLanguages", "en")
 
 Usergeek.getClient().setUserId("123123-341231")
 
 Usergeek.getClient().logEvent("StartConversation",
     EventProperties().set("type", "private"))
 
-Usergeek.getClient().logUserProperties(
-    UserProperties()
-        .add("supportedLanguages", "ru"))
+Usergeek.getClient()
+    .appendUserProperty("supportedLanguages", "ru")
 
 Usergeek.getClient().logEvent("EndConversation")
 Usergeek.getClient().flush()
@@ -83,19 +81,16 @@ Usergeek.INSTANCE.initialize(context, "<API_KEY>",
                 )
 );
 
-Usergeek.INSTANCE.getClient().logUserProperties(
-    new UserProperties()
-        .set("gender", "male")
-        .set("supportedLanguages", "en"));
+Usergeek.INSTANCE.getClient()
+    .setUserProperty("gender", "male")
+    .setUserProperty("supportedLanguages", "en");
 
 UsergeekClient client = Usergeek.INSTANCE.getClient();
 client.setUserId("123123-341231");
 
 client.logEvent("StartConversation", new EventProperties().set("type", "private"));
 
-client.logUserProperties(
-          new UserProperties()
-              .set("supportedLanguages", "ru"));
+client.appendUserProperty("supportedLanguages", "ru");
 
 client.logEvent("EndConversation");
 

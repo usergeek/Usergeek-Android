@@ -25,7 +25,7 @@ class UsergeekTest: BaseTest() {
     fun testNotInitialized() {
         Usergeek.getClient()
             .setUserId("FIRST")
-            .logUserProperties(UserProperties())
+            .setUserProperty("property", "value")
             .logEvent("Event")
             .flush()
     }
@@ -50,8 +50,7 @@ class UsergeekTest: BaseTest() {
                 )
         )
 
-        Usergeek.getClient().logUserProperties(
-            UserProperties().set("gender", "male"))
+        Usergeek.getClient().setUserProperty("gender", "male")
 
         Usergeek.getClient().setUserId("123123-341231")
 
@@ -182,7 +181,7 @@ class UsergeekTest: BaseTest() {
         val sendLooper = Shadows.shadowOf(statisticsImpl.uploader.sendThread.looper)
 
         Usergeek.getClient()
-            .logUserProperties(UserProperties().set("gender", "man"))
+            .setUserProperty("gender", "man")
             .setUserId("123321")
             .logEvent("MyEvent")
             .logEvent("MyEvent2", EventProperties()

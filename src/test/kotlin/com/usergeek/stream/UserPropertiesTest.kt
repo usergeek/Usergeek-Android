@@ -99,16 +99,30 @@ class UserPropertiesTest {
         }
 
        run {
-            userProperties.add(property2, value4)
+            userProperties.increment(property2, 34)
             assertThat(content.size).isEqualTo(5)
-            assertThat(content[property2]!!.operation).isEqualTo(Formats.PropertyOperation.ADD)
-            assertThat(content[property2]!!.value).isEqualTo(value4)
+            assertThat(content[property2]!!.operation).isEqualTo(Formats.PropertyOperation.INCREMENT)
+            assertThat(content[property2]!!.value).isEqualTo(34)
         }
 
        run {
-            userProperties.subtract(property3, value2)
+            userProperties.increment(property3, -67.78)
             assertThat(content.size).isEqualTo(5)
-            assertThat(content[property3]!!.operation).isEqualTo(Formats.PropertyOperation.SUBTRACT)
+            assertThat(content[property3]!!.operation).isEqualTo(Formats.PropertyOperation.INCREMENT)
+            assertThat(content[property3]!!.value).isEqualTo(-67.78)
+        }
+
+       run {
+            userProperties.append(property2, "aaa")
+            assertThat(content.size).isEqualTo(5)
+            assertThat(content[property2]!!.operation).isEqualTo(Formats.PropertyOperation.APPEND)
+            assertThat(content[property2]!!.value).isEqualTo("aaa")
+        }
+
+       run {
+            userProperties.remove(property3, value2)
+            assertThat(content.size).isEqualTo(5)
+            assertThat(content[property3]!!.operation).isEqualTo(Formats.PropertyOperation.REMOVE)
             assertThat(content[property3]!!.value).isEqualTo(value2)
         }
 

@@ -237,28 +237,56 @@ class FormatsTest : BaseTest() {
             val jsonObject = JSONObject()
             jsonObject.putPropertyValue(
                 UserProperties.UserPropertyValue(
-                    Formats.PropertyOperation.ADD,
-                    "abc"
+                    Formats.PropertyOperation.INCREMENT,
+                    23
                 )
             )
             Truth.assertThat(jsonObject.length()).isEqualTo(2)
-            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(23)
             Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
-                .isEqualTo(Formats.PropertyOperation.ADD)
+                .isEqualTo(Formats.PropertyOperation.INCREMENT)
         }
 
         kotlin.run {
             val jsonObject = JSONObject()
             jsonObject.putPropertyValue(
                 UserProperties.UserPropertyValue(
-                    Formats.PropertyOperation.SUBTRACT,
+                    Formats.PropertyOperation.INCREMENT,
+                    -43.45
+                )
+            )
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(-43.45)
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.INCREMENT)
+        }
+
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.APPEND,
                     "abc"
                 )
             )
             Truth.assertThat(jsonObject.length()).isEqualTo(2)
             Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
             Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
-                .isEqualTo(Formats.PropertyOperation.SUBTRACT)
+                .isEqualTo(Formats.PropertyOperation.APPEND)
+        }
+
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.REMOVE,
+                    "abc"
+                )
+            )
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.REMOVE)
         }
     }
 

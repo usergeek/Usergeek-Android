@@ -61,8 +61,9 @@ object Formats {
     object PropertyOperation {
         const val SET = "s"
         const val UNSET = "u"
-        const val ADD = "+"
-        const val SUBTRACT = "-"
+        const val INCREMENT = "i"
+        const val APPEND = "a"
+        const val REMOVE = "r"
     }
 
     object DefaultEvents {

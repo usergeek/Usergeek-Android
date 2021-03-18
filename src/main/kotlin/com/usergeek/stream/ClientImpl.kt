@@ -56,7 +56,8 @@ class ClientImpl(
             SessionTracker.enableSessionTracking(it)
         }
 
-        config.enableFlushOnClose?.registerActivityLifecycleCallbacks(object : LifecycleCallbacks() {
+        config.enableFlushOnClose?.registerActivityLifecycleCallbacks(object :
+            LifecycleCallbacks() {
             @Override
             override fun onActivityPaused(activity: Activity) {
                 flush()
@@ -102,7 +103,27 @@ class ClientImpl(
         return this
     }
 
-    override fun logUserProperties(userProperties: UserProperties): UsergeekClient {
+    override fun setUserProperty(property: String, value: Any?): UsergeekClient {
+        return logUserProperties(UserProperties().set(property, value))
+    }
+
+    override fun unsetUserProperty(property: String): UsergeekClient {
+        return logUserProperties(UserProperties().unset(property))
+    }
+
+    override fun incrementUserProperty(property: String, value: Number): UsergeekClient {
+        return logUserProperties(UserProperties().increment(property, value))
+    }
+
+    override fun appendUserProperty(property: String, value: String): UsergeekClient {
+        return logUserProperties(UserProperties().append(property, value))
+    }
+
+    override fun removeUserProperty(property: String, value: String): UsergeekClient {
+        return logUserProperties(UserProperties().remove(property, value))
+    }
+
+    private fun logUserProperties(userProperties: UserProperties): UsergeekClient {
         val time = System.currentTimeMillis()
 
         logThread.post {

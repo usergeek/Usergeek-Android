@@ -4,23 +4,28 @@ class UserProperties: BaseProperties<UserProperties.UserPropertyValue>() {
 
     data class UserPropertyValue(val operation: String, val value: Any?)
 
-    fun set(property: String, value: Any?): UserProperties {
+    internal fun set(property: String, value: Any?): UserProperties {
         add(property, UserPropertyValue(Formats.PropertyOperation.SET, value))
         return this
     }
 
-    fun unset(property: String): UserProperties {
+    internal fun unset(property: String): UserProperties {
         add(property, UserPropertyValue(Formats.PropertyOperation.UNSET, null))
         return this
     }
 
-    fun add(property: String, value: Any?): UserProperties {
-        add(property, UserPropertyValue(Formats.PropertyOperation.ADD, value))
+    internal fun increment(property: String, value: Number): UserProperties {
+        add(property, UserPropertyValue(Formats.PropertyOperation.INCREMENT, value))
         return this
     }
 
-    fun subtract(property: String, value: Any?): UserProperties {
-        add(property, UserPropertyValue(Formats.PropertyOperation.SUBTRACT, value))
+    internal fun append(property: String, value: String): UserProperties {
+        add(property, UserPropertyValue(Formats.PropertyOperation.APPEND, value))
+        return this
+    }
+
+    internal fun remove(property: String, value: String): UserProperties {
+        add(property, UserPropertyValue(Formats.PropertyOperation.REMOVE, value))
         return this
     }
 }

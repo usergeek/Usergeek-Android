@@ -9,7 +9,15 @@ interface UsergeekClient {
 
     fun resetUserId(regenerateDeviceId: Boolean): UsergeekClient
 
-    fun logUserProperties(userProperties: UserProperties): UsergeekClient
+    fun setUserProperty(property: String, value: Any?): UsergeekClient
+
+    fun unsetUserProperty(property: String): UsergeekClient
+
+    fun incrementUserProperty(property: String, value: Number): UsergeekClient
+
+    fun appendUserProperty(property: String, value: String): UsergeekClient
+
+    fun removeUserProperty(property: String, value: String): UsergeekClient
 
     fun logEvent(eventName: String): UsergeekClient
 
