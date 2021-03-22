@@ -5,7 +5,7 @@ import android.content.Context
 class IdentifyStorage(ctx: Context) {
 
     companion object {
-        const val PREFERENCES_NAME = "com.rubylight.android.statistics.preferences"
+        const val PREFERENCES_NAME = "com.usergeek.android.statistics.preferences"
         const val DEVICE_ID_KEY = "device_id"
         const val USER_ID_KEY = "user_id"
     }

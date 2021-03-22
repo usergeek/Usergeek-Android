@@ -72,7 +72,6 @@ class UsergeekTest: BaseTest() {
         instance.flush()
         Shadows.shadowOf(statisticsImpl.logThread.looper).runOneTask()
 
-//        Truth.assertThat(context.getDatabasePath(DatabaseSQLiteImpl.DATABASE_NAME).exists()).isTrue()
         Truth.assertThat(statisticsImpl.deviceId).isNotNull()
         Truth.assertThat(statisticsImpl.deviceId)
             .isEqualTo(statisticsImpl.getDeviceId())
@@ -169,8 +168,6 @@ class UsergeekTest: BaseTest() {
     fun testSetUserProperties() {
 
         val initConfig = InitConfig()
-//            .setServerUrl("http://localhost:8889/collectNewSdk")
-//            .setServerUrl("http://18.222.182.218:8989/collectNewSdk")
             .setDevicePropertyConfig(DevicePropertyConfig().trackCacheProperty("country", { "lv" }))
             .enableStartAppEvent()
 
@@ -192,13 +189,6 @@ class UsergeekTest: BaseTest() {
                 .set("duration", 231)
                 .set("duration ", 233L)
             )
-
-//        val up = UserProperties()
-//        for (i in 1 .. Formats.PROPERTIES_MAX_COUNT + 1) {
-//            up.set("property$i", "aa")
-//        }
-//        Statistics.getClient().logUserProperties(up)
-
 
         logLooper.runToEndOfTasks()
         logLooper.runToEndOfTasks()

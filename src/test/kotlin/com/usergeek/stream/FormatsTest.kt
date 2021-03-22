@@ -328,7 +328,6 @@ class FormatsTest : BaseTest() {
             .set("a", "1")
 
         val validateUserProperties = Formats.buildPropertiesContent(userProperties)
-//        println(">>>>>> " + validateUserProperties)
 
         Truth.assertThat(validateUserProperties!!.length()).isEqualTo(1)
         val list = validateUserProperties[Formats.ContentField.PROPERTIES] as JSONArray
@@ -347,7 +346,6 @@ class FormatsTest : BaseTest() {
             .unset("a")
 
         val validateUserProperties = Formats.buildPropertiesContent(userProperties)
-//        println(">>>>>> " + validateUserProperties)
 
         Truth.assertThat(validateUserProperties!!.length()).isEqualTo(1)
         val list = validateUserProperties[Formats.ContentField.PROPERTIES] as JSONArray
@@ -367,7 +365,6 @@ class FormatsTest : BaseTest() {
             .set("a", "2")
 
         val validateUserProperties = Formats.buildPropertiesContent(userProperties)
-//        println(">>>>>> " + validateUserProperties)
 
         Truth.assertThat(validateUserProperties!!.length()).isEqualTo(1)
         val list = validateUserProperties[Formats.ContentField.PROPERTIES] as JSONArray
@@ -392,7 +389,6 @@ class FormatsTest : BaseTest() {
             .set("a", "1")
 
         val validateEventProperties = Formats.buildPropertiesContent(eventProperties)
-//        println(">>>>>> " + validateUserProperties)
 
         Truth.assertThat(validateEventProperties!!.length()).isEqualTo(1)
         val list = validateEventProperties[Formats.ContentField.PROPERTIES] as JSONArray
@@ -410,7 +406,6 @@ class FormatsTest : BaseTest() {
             .set("a", "2")
 
         val validateEventProperties = Formats.buildPropertiesContent(eventProperties)
-//        println(">>>>>> " + validateUserProperties)
 
         Truth.assertThat(validateEventProperties!!.length()).isEqualTo(1)
         val list = validateEventProperties[Formats.ContentField.PROPERTIES] as JSONArray

@@ -28,24 +28,5 @@ class UploaderTest: BaseTest() {
         }
 
         sendLooper.runToEndOfTasks()
-
-//        println(">>>>> " + uploader.doPostRequest(
-//            URL("http://localhost:8877/aa"),
-//            5000, 200000,
-//            "123456",
-//            "content".toByteArray()
-//        ))
-//        println(">>>>> " + uploader.doPostRequest(
-//            URL("http://localhost:8877/aa"),
-//            5000, 200000,
-//            "123456",
-//            "content".toByteArray()
-//        ))
-//        println(">>>>> " + uploader.doPostRequest(
-//            URL("http://localhost:8877/aa"),
-//            5000, 200000,
-//            "123456",
-//            "content".toByteArray()
-//        ))
     }
 }

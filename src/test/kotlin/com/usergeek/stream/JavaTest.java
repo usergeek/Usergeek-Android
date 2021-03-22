@@ -34,9 +34,6 @@ public class JavaTest {
                 .set(property1, value1)
                 .set("", true)
                 .set(property1, null));
-
-//        Statistics.INSTANCE.getClient().logUserProperties(new UserProperties().set("age", "old"));
-
     }
 
 }
