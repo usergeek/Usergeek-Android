@@ -5,7 +5,7 @@
 Download via Gradle:
 
 ```gradle
-implementation 'com.usergeek:usergeek-android:1.0.4'
+implementation 'com.usergeek:usergeek-android:1.0.7'
 ```
 
 Download via Maven:
@@ -14,7 +14,7 @@ Download via Maven:
 <dependency>
   <groupId>com.usergeek</groupId>
   <artifactId>usergeek-android</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.7</version>
   <type>pom</type>
 </dependency>
 ```
