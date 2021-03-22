@@ -1,7 +1,7 @@
 ext {
     PUBLISH_GROUP_ID = 'com.usergeek'
     PUBLISH_ARTIFACT_ID = 'usergeek-android'
-    PUBLISH_VERSION = '1.0.4'
+    PUBLISH_VERSION = '1.0.5'
 }
 
 buildscript {
