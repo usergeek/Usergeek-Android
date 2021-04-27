@@ -44,18 +44,14 @@ Usergeek.initialize(context, "<API_KEY>",
 )
 
 Usergeek.getClient()
-    .setUserProperty("gender", "male")
-    .setUserProperty("supportedLanguages", "en")
+    .setUserProperty("locale", "en")
 
 Usergeek.getClient().setUserId("123123-341231")
 
-Usergeek.getClient().logEvent("StartConversation",
-    EventProperties().set("type", "private"))
+Usergeek.getClient().logEvent("StartConversation")
 
-Usergeek.getClient()
-    .appendUserProperty("supportedLanguages", "ru")
-
-Usergeek.getClient().logEvent("EndConversation")
+Usergeek.getClient().logEvent("EndConversation",
+    EventProperties().set("conversationType", "public").set("conversationSettings", "default"))
 Usergeek.getClient().flush()
 ```
 
@@ -82,17 +78,14 @@ Usergeek.INSTANCE.initialize(context, "<API_KEY>",
 );
 
 Usergeek.INSTANCE.getClient()
-    .setUserProperty("gender", "male")
-    .setUserProperty("supportedLanguages", "en");
+    .setUserProperty("locale", "en");
 
 UsergeekClient client = Usergeek.INSTANCE.getClient();
 client.setUserId("123123-341231");
 
-client.logEvent("StartConversation", new EventProperties().set("type", "private"));
+client.logEvent("StartConversation");
 
-client.appendUserProperty("supportedLanguages", "ru");
-
-client.logEvent("EndConversation");
+client.logEvent("EndConversation", new EventProperties().set("conversationType", "public").set("conversationSettings", "default"));
 
 client.flush();
 ```
