@@ -19,7 +19,7 @@ object DevicePropertyFactory {
     }
 
     fun getCountry(ctx: Context): String {
-        return (getCountryFromNetwork(ctx) ?: getCountryFromLocale()).toLowerCase(Locale.ENGLISH)
+        return (getCountryFromNetwork(ctx) ?: getCountryFromLocale()).lowercase(Locale.ENGLISH)
     }
 
     private fun getCountryFromNetwork(ctx: Context): String? {
@@ -29,7 +29,7 @@ object DevicePropertyFactory {
                     TelephonyManager.PHONE_TYPE_CDMA -> null
                     else -> {
                         this.networkCountryIso?.run {
-                            toLowerCase(Locale.US).run {
+                            lowercase(Locale.US).run {
                                 if (this.isBlank()) null else this
                             }
                         }
@@ -43,7 +43,7 @@ object DevicePropertyFactory {
     }
 
     private fun getCountryFromLocale(): String {
-        return Locale.getDefault().country.toLowerCase(Locale.ENGLISH)
+        return Locale.getDefault().country.lowercase(Locale.ENGLISH)
     }
 }
 

@@ -9,8 +9,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.lang.IllegalArgumentException
+import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.collections.ArrayList
 
 @RunWith(RobolectricTestRunner::class)
 class FormatsTest : BaseTest() {
@@ -71,6 +73,15 @@ class FormatsTest : BaseTest() {
         Truth.assertThat(jsonObject.length()).isEqualTo(2)
         Truth.assertThat(jsonObject[Formats.PropertyField.NAME]).isEqualTo("pr")
         Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
+    }
+
+    @Test
+    fun buildDatePropertyContent() {
+        val jsonObject = Formats.buildPropertyContent("pr", Date(123L))
+        Truth.assertThat(jsonObject.length()).isEqualTo(3)
+        Truth.assertThat(jsonObject[Formats.PropertyField.NAME]).isEqualTo("pr")
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE_TYPE]).isEqualTo(Formats.PropertyValueType.UTC_TIME)
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(123L)
     }
 
     @Test
@@ -187,6 +198,16 @@ class FormatsTest : BaseTest() {
     }
 
     @Test
+    fun putPropertyDateValue() {
+        val jsonObject = JSONObject()
+        jsonObject.putPropertyValue(Date(123L))
+        Truth.assertThat(jsonObject.length()).isEqualTo(2)
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE_TYPE]).isEqualTo(Formats.PropertyValueType.UTC_TIME)
+        Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo(123L)
+    }
+
+
+    @Test
     fun putPropertyNullValue() {
         val jsonObject = JSONObject()
         jsonObject.putPropertyValue(null)
@@ -217,6 +238,20 @@ class FormatsTest : BaseTest() {
             Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abc")
             Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
                 .isEqualTo(Formats.PropertyOperation.SET)
+        }
+
+        kotlin.run {
+            val jsonObject = JSONObject()
+            jsonObject.putPropertyValue(
+                UserProperties.UserPropertyValue(
+                    Formats.PropertyOperation.SET_ONCE,
+                    "abcd"
+                )
+            )
+            Truth.assertThat(jsonObject.length()).isEqualTo(2)
+            Truth.assertThat(jsonObject[Formats.PropertyField.VALUE]).isEqualTo("abcd")
+            Truth.assertThat(jsonObject[Formats.PropertyField.OPERATION])
+                .isEqualTo(Formats.PropertyOperation.SET_ONCE)
         }
 
         kotlin.run {
@@ -338,6 +373,25 @@ class FormatsTest : BaseTest() {
         Truth.assertThat(obj.get(Formats.PropertyField.VALUE)).isEqualTo("1")
         Truth.assertThat(obj.get(Formats.PropertyField.OPERATION))
             .isEqualTo(Formats.PropertyOperation.SET)
+    }
+
+    @Test
+    fun validateSetOnceUserProperties() {
+        val userProperties = UserProperties()
+            .setOnce("a", Date(555L))
+
+        val validateUserProperties = Formats.buildPropertiesContent(userProperties)
+
+        Truth.assertThat(validateUserProperties!!.length()).isEqualTo(1)
+        val list = validateUserProperties[Formats.ContentField.PROPERTIES] as JSONArray
+        Truth.assertThat(list.length()).isEqualTo(1)
+        val obj = list.get(0) as JSONObject
+        Truth.assertThat(obj.length()).isEqualTo(4)
+        Truth.assertThat(obj.get(Formats.PropertyField.NAME)).isEqualTo("a")
+        Truth.assertThat(obj.get(Formats.PropertyField.VALUE_TYPE)).isEqualTo(Formats.PropertyValueType.UTC_TIME)
+        Truth.assertThat(obj.get(Formats.PropertyField.VALUE)).isEqualTo(555L)
+        Truth.assertThat(obj.get(Formats.PropertyField.OPERATION))
+            .isEqualTo(Formats.PropertyOperation.SET_ONCE)
     }
 
     @Test

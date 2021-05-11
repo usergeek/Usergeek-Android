@@ -107,6 +107,10 @@ class ClientImpl(
         return logUserProperties(UserProperties().set(property, value))
     }
 
+    override fun setOnceUserProperty(property: String, value: Any?): UsergeekClient {
+        return logUserProperties(UserProperties().setOnce(property, value))
+    }
+
     override fun unsetUserProperty(property: String): UsergeekClient {
         return logUserProperties(UserProperties().unset(property))
     }

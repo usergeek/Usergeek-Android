@@ -1,18 +1,17 @@
 ext {
     PUBLISH_GROUP_ID = 'com.usergeek'
     PUBLISH_ARTIFACT_ID = 'usergeek-android'
-    PUBLISH_VERSION = '1.0.7'
+    PUBLISH_VERSION = '1.0.8'
 }
 
 buildscript {
-    ext.gradle_version = '3.5.3'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
+        classpath "com.android.tools.build:gradle:4.2.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0"
     }
 }
 
@@ -24,11 +23,11 @@ apply from: "${rootProject.projectDir}/scripts/publish-mavencentral.gradle"
 
 repositories {
     google()
-    jcenter()
+    mavenCentral()
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -38,8 +37,17 @@ android {
     defaultConfig {
         versionName "${PUBLISH_VERSION}"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug{
+            buildConfigField("String","VERSION_NAME","\"${defaultConfig.versionName}\"")
+        }
+        release {
+            buildConfigField("String","VERSION_NAME","\"${defaultConfig.versionName}\"")
+        }
     }
 
     sourceSets {
@@ -68,7 +76,6 @@ kapt {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21"
     implementation 'androidx.core:core-ktx:1.3.2'
 
     testImplementation "junit:junit:4.13.2"
@@ -79,11 +86,6 @@ dependencies {
     testImplementation "com.google.truth.extensions:truth-java8-extension:1.0"
 
     testImplementation 'org.robolectric:robolectric:4.3.1'
-
-//    testImplementation "androidx.test:runner:1.2.0"
-//    testImplementation "androidx.test:rules:1.2.0"
-//    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
-//    testImplementation 'org.mockito:mockito-core:1.10.19'
 }
 
 

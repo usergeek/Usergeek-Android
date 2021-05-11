@@ -1,6 +1,7 @@
 package com.usergeek.stream
 
 import android.os.Build
+import androidx.core.util.Supplier
 import com.google.common.truth.Truth
 import org.junit.Before
 import org.junit.Test
@@ -29,8 +30,9 @@ class DevicePropertyConfigTest: BaseTest() {
             .trackCarrier()
             .trackLanguage()
             .trackCacheProperty("my") { "prop"}
+            .trackProperty("time") { _ -> Supplier { Date(1234L) }  }
 
-        Truth.assertThat(config.properties.size).isEqualTo(10)
+        Truth.assertThat(config.properties.size).isEqualTo(11)
         Truth.assertThat(config.properties["platform"]!!(context).get()).isEqualTo("android")
         Truth.assertThat(config.properties["model"]!!(context).get()).isEqualTo(Build.MODEL)
         Truth.assertThat(config.properties["appVersion"]!!(context).get()).isEqualTo(DevicePropertyFactory.getAppVersion(context))
@@ -41,5 +43,6 @@ class DevicePropertyConfigTest: BaseTest() {
         Truth.assertThat(config.properties["carrier"]!!(context).get()).isEqualTo(DevicePropertyFactory.getCarrier(context))
         Truth.assertThat(config.properties["language"]!!(context).get()).isEqualTo(Locale.getDefault().language)
         Truth.assertThat(config.properties["my"]!!(context).get()).isEqualTo("prop")
+        Truth.assertThat(config.properties["time"]!!(context).get()).isEqualTo(Date(1234L))
     }
 }

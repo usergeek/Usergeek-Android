@@ -9,6 +9,11 @@ class UserProperties: BaseProperties<UserProperties.UserPropertyValue>() {
         return this
     }
 
+    internal fun setOnce(property: String, value: Any?): UserProperties {
+        add(property, UserPropertyValue(Formats.PropertyOperation.SET_ONCE, value))
+        return this
+    }
+
     internal fun unset(property: String): UserProperties {
         add(property, UserPropertyValue(Formats.PropertyOperation.UNSET, null))
         return this

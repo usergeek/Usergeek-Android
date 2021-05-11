@@ -8,7 +8,7 @@ import kotlin.collections.HashMap
 
 class DevicePropertyConfig {
 
-    val properties = HashMap<String, (Context) -> Supplier<String?>>()
+    val properties = HashMap<String, (Context) -> Supplier<Any?>>()
 
     fun trackPlatform(): DevicePropertyConfig {
         return trackCacheProperty("platform") { "android" }
@@ -52,7 +52,7 @@ class DevicePropertyConfig {
         }
     }
 
-    fun trackProperty(property: String, initializer: (Context) -> Supplier<String?>): DevicePropertyConfig {
+    fun trackProperty(property: String, initializer: (Context) -> Supplier<Any?>): DevicePropertyConfig {
         properties[property] = initializer
         return this
     }

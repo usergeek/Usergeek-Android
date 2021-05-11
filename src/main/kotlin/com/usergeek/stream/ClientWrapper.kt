@@ -22,6 +22,11 @@ class ClientWrapper : UsergeekClient {
         return this
     }
 
+    override fun setOnceUserProperty(property: String, value: Any?): UsergeekClient {
+        client?.setOnceUserProperty(property, value) ?: ignoreWarning("setOnceUserProperty")
+        return this
+    }
+
     override fun unsetUserProperty(property: String): UsergeekClient {
         client?.unsetUserProperty(property) ?: ignoreWarning("unsetUserProperty")
         return this

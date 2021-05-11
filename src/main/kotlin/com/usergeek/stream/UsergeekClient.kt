@@ -11,6 +11,8 @@ interface UsergeekClient {
 
     fun setUserProperty(property: String, value: Any?): UsergeekClient
 
+    fun setOnceUserProperty(property: String, value: Any?): UsergeekClient
+
     fun unsetUserProperty(property: String): UsergeekClient
 
     fun incrementUserProperty(property: String, value: Number): UsergeekClient

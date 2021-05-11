@@ -77,7 +77,7 @@ class UserPropertiesTest {
             userProperties.set(property2, value2)
             userProperties.set(property3, value3)
             userProperties.set(property4, value4)
-            userProperties.set(property5, value5)
+            userProperties.setOnce(property5, value5)
             assertThat(content.size).isEqualTo(5)
             assertThat(content[property1]!!.operation).isEqualTo(Formats.PropertyOperation.SET)
             assertThat(content[property1]!!.value).isEqualTo(value1)
@@ -87,7 +87,7 @@ class UserPropertiesTest {
             assertThat(content[property3]!!.value).isEqualTo(value3)
             assertThat(content[property4]!!.operation).isEqualTo(Formats.PropertyOperation.SET)
             assertThat(content[property4]!!.value).isNull()
-            assertThat(content[property5]!!.operation).isEqualTo(Formats.PropertyOperation.SET)
+            assertThat(content[property5]!!.operation).isEqualTo(Formats.PropertyOperation.SET_ONCE)
             assertThat(content[property5]!!.value).isEqualTo(value5)
         }
 

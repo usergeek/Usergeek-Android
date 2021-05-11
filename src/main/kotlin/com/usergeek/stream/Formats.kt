@@ -3,6 +3,8 @@ package com.usergeek.stream
 import androidx.core.util.Supplier
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
 object Formats {
 
@@ -47,9 +49,14 @@ object Formats {
     object PropertyField {
         const val NAME = "n"
         const val NAME_WARNING = "nw"
+        const val VALUE_TYPE = "vt"
         const val VALUE = "v"
         const val VALUE_WARNING = "vw"
         const val OPERATION = "o"
+    }
+
+    object PropertyValueType {
+        const val UTC_TIME = "utc_time"
     }
 
     object Warning {
@@ -60,6 +67,7 @@ object Formats {
 
     object PropertyOperation {
         const val SET = "s"
+        const val SET_ONCE = "so"
         const val UNSET = "u"
         const val INCREMENT = "i"
         const val APPEND = "a"
@@ -124,11 +132,13 @@ object Formats {
             "\"${ReportsField.DEVICE}\":${it},"
         } ?: ""
 
-        val reportsPart = "\"${ReportsField.REPORTS}\":${reports.joinToString(
-            separator = ",",
-            prefix = "[",
-            postfix = "]"
-        )}"
+        val reportsPart = "\"${ReportsField.REPORTS}\":${
+            reports.joinToString(
+                separator = ",",
+                prefix = "[",
+                postfix = "]"
+            )
+        }"
 
         return "{${uploadTime}${libraryPart}${devicePart}${reportsPart}}"
     }
@@ -268,6 +278,10 @@ internal fun JSONObject.putPropertyValue(value: Any?) {
         }
         is Boolean, is Long, is Int, is Short, is Byte, is Double, is Float -> {
             put(Formats.PropertyField.VALUE, value)
+        }
+        is Date -> {
+            put(Formats.PropertyField.VALUE_TYPE, "utc_time")
+            put(Formats.PropertyField.VALUE, value.time)
         }
         is UserProperties.UserPropertyValue -> {
             putPropertyValue(value.value)

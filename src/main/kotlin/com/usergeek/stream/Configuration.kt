@@ -16,17 +16,13 @@ class Configuration(context: Context, internal val apiKey: String, initConfig: I
     internal val removeReportsPercentWhenFull = 2L
     internal val uploadReportsCount = 30
     internal val uploadReportsPeriodMillis = TimeUnit.SECONDS.toMillis(30)
-    internal val deviceProperties: BaseProperties<Supplier<String?>>?
+    internal val deviceProperties: BaseProperties<Supplier<Any?>>? = initConfig.devicePropertyConfig?.let {
+        val properties = BaseProperties<Supplier<Any?>>()
 
-    init {
-        deviceProperties = initConfig.devicePropertyConfig?.let {
-            val properties = BaseProperties<Supplier<String?>>()
-
-            for (deviceProperty in it.properties) {
-                properties.add(deviceProperty.key, deviceProperty.value(context))
-            }
-            properties
+        for (deviceProperty in it.properties) {
+            properties.add(deviceProperty.key, deviceProperty.value(context))
         }
+        properties
     }
 
     override fun toString(): String {
