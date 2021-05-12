@@ -46,7 +46,7 @@ class DevicePropertyConfig {
         return trackCacheProperty("carrier", DevicePropertyFactory::getCarrier)
     }
 
-    fun trackCacheProperty(property: String, initializer: (Context) -> String?): DevicePropertyConfig {
+    fun trackCacheProperty(property: String, initializer: (Context) -> Any?): DevicePropertyConfig {
         return trackProperty(property) {
             CacheSupplierOnContext(it, initializer)
         }
